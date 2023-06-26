@@ -7,6 +7,7 @@ class ListCategoriesController {
 
   handle(request: Request, response: Response) {
     const all = this.listCategoriesUseCase.execute();
+    console.log(all);
 
     return response.json(all);
   }

@@ -18,15 +18,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                },
+                "$ref": "#/definitions/Specification",
                 "example": {
                   "name": "category name sample",
                   "description": "category description sample"
@@ -56,15 +48,7 @@
                 "schema": {
                   "type": "array",
                   "itens": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      }
-                    }
+                    "$ref": "#/definitions/Category"
                   }
                 }
               }
@@ -110,7 +94,10 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/Specification"
+                "type": "array",
+                "itens": {
+                  "$ref": "#/definitions/Specification"
+                }
               }
             }
           }
@@ -123,10 +110,38 @@
             "description": "Specification already exists!"
           }
         }
+      },
+      "get": {
+        "tags": ["Specifications"],
+        "summary": "List all Specifications",
+        "description":"List all Specifications",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Specification"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "definitions": {
+    "Category": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
     "Specification": {
       "type": "object",
       "properties": {

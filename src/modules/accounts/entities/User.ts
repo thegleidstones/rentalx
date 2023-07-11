@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 @Entity("users")
 class User {
   @PrimaryColumn()
-  id?: string;
+  id: string;
 
   @Column()
   name: string;
@@ -28,7 +28,7 @@ class User {
   created_at: Date;
 
   constructor() {
-    if (this.id) {
+    if (!this.id) {
       this.id = v4();
     }
   }

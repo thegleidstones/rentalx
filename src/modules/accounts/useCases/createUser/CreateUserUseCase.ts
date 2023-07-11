@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
@@ -12,16 +14,22 @@ class CreateUserUseCase {
 
   async execute({
     name,
-    username,
-    password,
     email,
+    password,
     driver_licence,
   }: ICreateUserDTO): Promise<void> {
+    const userAlreadyExists = await this.usersRepository.findByEmail(email);
+
+    if (userAlreadyExists) {
+      throw new Error("User already exists");
+    }
+
+    const passwordHash = await hash(password, 8);
+
     await this.usersRepository.create({
       name,
-      username,
-      password,
       email,
+      password: passwordHash,
       driver_licence,
     });
   }

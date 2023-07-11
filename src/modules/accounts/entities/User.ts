@@ -3,25 +3,22 @@ import { v4 } from "uuid";
 
 @Entity("users")
 class User {
-  @PrimaryColumn()
+  @PrimaryColumn("varchar")
   id: string;
 
-  @Column()
+  @Column("varchar")
   name: string;
 
-  @Column()
-  username: string;
-
-  @Column()
-  password: string;
-
-  @Column()
+  @Column("varchar", { unique: true })
   email: string;
 
-  @Column()
+  @Column("varchar")
+  password: string;
+
+  @Column("varchar")
   driver_licence: string;
 
-  @Column()
+  @Column("boolean", { default: false })
   isAdmin: boolean;
 
   @CreateDateColumn()

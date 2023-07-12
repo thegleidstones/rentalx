@@ -1,13 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { inject, injectable } from "tsyringe";
 
-import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
-import { AppError } from "../../../../errors/AppError";
-
-interface IRequest {
-  name: string;
-  description: string;
-}
+import { ICreateCategoryDTO } from "@modules/cars/dtos/ICreateCategoryDTO";
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
+import { AppError } from "@shared/errors/AppError";
 
 @injectable()
 class CreateCategoryUseCase {
@@ -16,7 +12,7 @@ class CreateCategoryUseCase {
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  async execute({ name, description }: IRequest): Promise<void> {
+  async execute({ name, description }: ICreateCategoryDTO): Promise<void> {
     const categoryAlreadyExist = await this.categoriesRepository.findByName(
       name
     );

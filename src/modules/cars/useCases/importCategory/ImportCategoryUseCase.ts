@@ -2,12 +2,8 @@ import csvParse from "csv-parse";
 import fs from "fs";
 import { inject, injectable } from "tsyringe";
 
-import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
-
-interface IImportCategory {
-  name: string;
-  description: string;
-}
+import { ICreateCategoryDTO } from "@modules/cars/dtos/ICreateCategoryDTO";
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
 
 @injectable()
 class ImportCategoryUseCase {
@@ -16,10 +12,10 @@ class ImportCategoryUseCase {
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
+  loadCategories(file: Express.Multer.File): Promise<ICreateCategoryDTO[]> {
     return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(file.path);
-      const categories: IImportCategory[] = [];
+      const categories: ICreateCategoryDTO[] = [];
 
       const parseFile = csvParse.parse();
 

@@ -1,13 +1,13 @@
 import { inject, injectable } from "tsyringe";
 
-import { User } from "../../entities/User";
-import { UsersRepository } from "../../repositories/implementations/UsersRepository";
+import { User } from "@modules/accounts/infra/typeorm/entities/User";
+import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 
 @injectable()
 class ListUserUSeCase {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: UsersRepository
+    private usersRepository: IUsersRepository
   ) {}
 
   async execute(): Promise<User[]> {
